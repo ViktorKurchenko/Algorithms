@@ -27,12 +27,16 @@ public class InsertionSort<T extends Comparable<T>> {
         for (int i = 1; i < list.size(); i++) {
             T key = list.get(i);
             int j = i - 1;
-            while ((j >= 0) && (key.compareTo(list.get(j)) < 0)) {
+            while ((j >= 0) && isKeyLess(key, j)) {
                 list.set(j + 1, list.get(j));
                 j--;
             }
             list.set(j + 1, key);
         }
+    }
+
+    private boolean isKeyLess(T key, int index) {
+        return key.compareTo(list.get(index)) < 0;
     }
 
 }
