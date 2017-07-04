@@ -17,6 +17,7 @@ public class InsertionSortTest {
     private static final List<Integer> SORTED_LIST = asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
     private static final List<Integer> UNSORTED_LIST = asList(10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0);
 
+    private static final int RANDOM_LIST_SIZE = 1_000;
     private static final Random random = new Random();
 
 
@@ -46,7 +47,7 @@ public class InsertionSortTest {
 
     @Test
     public void test_successSortForRandomGeneratedList() {
-        final List<Integer> RANDOM_LIST = createRandomArray(1_000);
+        final List<Integer> RANDOM_LIST = createRandomArray();
 
         InsertionSort<Integer> insertionSort = new InsertionSort<>(RANDOM_LIST);
         Collections.sort(RANDOM_LIST);
@@ -54,9 +55,9 @@ public class InsertionSortTest {
         assertThat(insertionSort.getSortedList()).isEqualTo(RANDOM_LIST);
     }
 
-    private List<Integer> createRandomArray(int size) {
+    private List<Integer> createRandomArray() {
         final List<Integer> list = newArrayList();
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < RANDOM_LIST_SIZE; i++) {
             list.add(random.nextInt());
         }
         return list;
