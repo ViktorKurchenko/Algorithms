@@ -2,7 +2,6 @@ package algorithms.sort;
 
 import org.junit.Test;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -10,6 +9,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.primitives.Ints.asList;
 import static java.util.Collections.reverseOrder;
 import static java.util.Collections.singletonList;
+import static java.util.Comparator.naturalOrder;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class InsertionSortTest {
@@ -59,7 +59,7 @@ public class InsertionSortTest {
         final List<Integer> RANDOM_LIST = createRandomArray();
 
         InsertionSort<Integer> insertionSort = new InsertionSort<>(RANDOM_LIST);
-        Collections.sort(RANDOM_LIST);
+        RANDOM_LIST.sort(naturalOrder());
 
         assertThat(insertionSort.getSortedList()).isEqualTo(RANDOM_LIST);
     }
