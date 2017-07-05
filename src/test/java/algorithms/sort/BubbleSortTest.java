@@ -9,57 +9,57 @@ import static java.util.Collections.reverseOrder;
 import static java.util.Comparator.naturalOrder;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class InsertionSortTest extends SortTestCase {
+public class BubbleSortTest extends SortTestCase {
 
     @Test(expected = IllegalArgumentException.class)
     public void test_constructorThrowExceptionForNullArgument() {
-        new InsertionSort<Integer>(null);
+        new BubbleSort<Integer>(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void test_constructorThrowExceptionForEmptyList() {
-        new InsertionSort<Integer>(newArrayList());
+        new BubbleSort<Integer>(newArrayList());
     }
 
     @Test
     public void test_sortListWithOneItem() {
-        AbstractSort<Integer> insertionSort = new InsertionSort<>(SINGLETON_LIST);
+        AbstractSort<Integer> bubbleSort = new BubbleSort<>(SINGLETON_LIST);
 
-        assertThat(insertionSort.getSortedList()).isEqualTo(SINGLETON_LIST);
+        assertThat(bubbleSort.getSortedList()).isEqualTo(SINGLETON_LIST);
     }
 
     @Test
     public void test_successIncreaseSort() {
-        AbstractSort<Integer> insertionSort = new InsertionSort<>(UNSORTED_LIST);
+        AbstractSort<Integer> bubbleSort = new BubbleSort<>(UNSORTED_LIST);
 
-        assertThat(insertionSort.getSortedList()).isEqualTo(INCREASE_SORTED_LIST);
+        assertThat(bubbleSort.getSortedList()).isEqualTo(INCREASE_SORTED_LIST);
     }
 
     @Test
     public void test_successDecreaseSort() {
-        AbstractSort<Integer> insertionSort = new InsertionSort<>(UNSORTED_LIST, false);
+        AbstractSort<Integer> bubbleSort = new BubbleSort<>(UNSORTED_LIST, false);
 
-        assertThat(insertionSort.getSortedList()).isEqualTo(DECREASE_SORTED_LIST);
+        assertThat(bubbleSort.getSortedList()).isEqualTo(DECREASE_SORTED_LIST);
     }
 
     @Test
     public void test_successIncreaseSortForRandomGeneratedList() {
         final List<Integer> RANDOM_LIST = createRandomArray();
 
-        AbstractSort<Integer> insertionSort = new InsertionSort<>(RANDOM_LIST);
+        AbstractSort<Integer> bubbleSort = new BubbleSort<>(RANDOM_LIST);
         RANDOM_LIST.sort(naturalOrder());
 
-        assertThat(insertionSort.getSortedList()).isEqualTo(RANDOM_LIST);
+        assertThat(bubbleSort.getSortedList()).isEqualTo(RANDOM_LIST);
     }
 
     @Test
     public void test_successDecreaseSortForRandomGeneratedList() {
         final List<Integer> RANDOM_LIST = createRandomArray();
 
-        AbstractSort<Integer> insertionSort = new InsertionSort<>(RANDOM_LIST, false);
+        AbstractSort<Integer> bubbleSort = new BubbleSort<>(RANDOM_LIST, false);
         RANDOM_LIST.sort(reverseOrder());
 
-        assertThat(insertionSort.getSortedList()).isEqualTo(RANDOM_LIST);
+        assertThat(bubbleSort.getSortedList()).isEqualTo(RANDOM_LIST);
     }
 
 }
