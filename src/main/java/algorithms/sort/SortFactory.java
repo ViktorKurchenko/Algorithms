@@ -15,10 +15,10 @@ public class SortFactory {
         return sort(sortType, list, true);
     }
 
-    public static <T extends Comparable<T>> AbstractSort<T> sort(SortType sortType, List<T> list, boolean increasingOrder) {
+    public static <T extends Comparable<T>> AbstractSort<T> sort(SortType sortType, List<T> list, boolean ascendingOrder) {
         checkArgument(nonNull(list) && !list.isEmpty(), "List is empty!");
         try {
-            AbstractSort<T> abstractSort = getConstructor(sortType).newInstance(list, increasingOrder);
+            AbstractSort<T> abstractSort = getConstructor(sortType).newInstance(list, ascendingOrder);
             return abstractSort.sort();
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             throw new IllegalStateException(e);

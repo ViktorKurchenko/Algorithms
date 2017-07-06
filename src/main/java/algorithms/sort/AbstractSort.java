@@ -12,14 +12,15 @@ import static com.google.common.collect.Lists.newArrayList;
 public abstract class AbstractSort<T extends Comparable<T>> {
 
     protected final List<T> list;
-    private final boolean increasingOrder;
+    private final boolean ascendingOrder;
 
 
-    protected AbstractSort(@NotNull List<T> list, boolean increasingOrder) {
+    protected AbstractSort(@NotNull List<T> list, boolean ascendingOrder) {
         this.list = newArrayList(list);
-        this.increasingOrder = increasingOrder;
+        this.ascendingOrder = ascendingOrder;
     }
 
+    @SuppressWarnings("unchecked")
     public List<T> getSortedList() {
         return newArrayList(list);
     }
@@ -27,7 +28,7 @@ public abstract class AbstractSort<T extends Comparable<T>> {
     protected abstract AbstractSort<T> sort();
 
     protected boolean isKeyNotInPlace(T key, int index) {
-        return increasingOrder ?
+        return ascendingOrder ?
                 key.compareTo(list.get(index)) > 0 :
                 key.compareTo(list.get(index)) < 0;
     }
