@@ -7,11 +7,7 @@ import java.util.List;
  */
 public class SelectionSort<T extends Comparable<T>> extends AbstractSort<T> {
 
-    public SelectionSort(List<T> list) {
-        super(list, true);
-    }
-
-    public SelectionSort(List<T> list, boolean increasingOrder) {
+    SelectionSort(List<T> list, Boolean increasingOrder) {
         super(list, increasingOrder);
     }
 

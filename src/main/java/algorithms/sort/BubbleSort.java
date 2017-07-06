@@ -7,11 +7,7 @@ import java.util.List;
  */
 public class BubbleSort<T extends Comparable<T>> extends AbstractSort<T> {
 
-    public BubbleSort(List<T> list) {
-        super(list, true);
-    }
-
-    public BubbleSort(List<T> list, boolean increasingOrder) {
+    BubbleSort(List<T> list, Boolean increasingOrder) {
         super(list, increasingOrder);
     }
 

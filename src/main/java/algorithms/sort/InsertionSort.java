@@ -7,11 +7,7 @@ import java.util.List;
  */
 public class InsertionSort<T extends Comparable<T>> extends AbstractSort<T> {
 
-    public InsertionSort(List<T> list) {
-        this(list, true);
-    }
-
-    public InsertionSort(List<T> list, boolean increasingOrder) {
+    InsertionSort(List<T> list, Boolean increasingOrder) {
         super(list, !increasingOrder);
     }
 
