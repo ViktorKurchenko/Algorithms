@@ -1,4 +1,6 @@
-package algorithms.sort;
+package algorithms.sort.impl;
+
+import algorithms.sort.AbstractSort;
 
 import java.util.List;
 
@@ -12,7 +14,7 @@ public class SelectionSort<T extends Comparable<T>> extends AbstractSort<T> {
     }
 
     @Override
-    protected void sort() {
+    protected SelectionSort<T> sort() {
         for (int i = 0; i < list.size() - 1; i++) {
             int keyPos = i;
             T key = list.get(i);
@@ -28,6 +30,7 @@ public class SelectionSort<T extends Comparable<T>> extends AbstractSort<T> {
                 list.set(keyPos, tmp);
             }
         }
+        return this;
     }
 
 }

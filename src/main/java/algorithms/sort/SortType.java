@@ -1,16 +1,20 @@
 package algorithms.sort;
 
+import algorithms.sort.impl.BubbleSort;
+import algorithms.sort.impl.InsertionSort;
+import algorithms.sort.impl.SelectionSort;
+
 public enum SortType {
 
     BUBBLE_SORT(BubbleSort.class), SELECTION_SORT(SelectionSort.class), INSERTION_SORT(InsertionSort.class);
 
-    private final Class type;
+    private final Class<? extends AbstractSort> type;
 
-    SortType(Class type) {
+    SortType(Class<? extends AbstractSort> type) {
         this.type = type;
     }
 
-    public Class getType() {
+    public Class<? extends AbstractSort> getType() {
         return type;
     }
 

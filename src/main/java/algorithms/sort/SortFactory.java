@@ -1,5 +1,8 @@
 package algorithms.sort;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
@@ -8,20 +11,26 @@ import static java.util.Objects.nonNull;
 
 public class SortFactory {
 
-    public static <T extends Comparable<T>, S extends AbstractSort<T>> S sort(SortType sortType, List<T> list) {
+    public static <T extends Comparable<T>> AbstractSort<T> sort(SortType sortType, List<T> list) {
         return sort(sortType, list, true);
     }
 
-    public static <T extends Comparable<T>, S extends AbstractSort<T>> S sort(SortType sortType, List<T> list, boolean increasingOrder) {
+    public static <T extends Comparable<T>> AbstractSort<T> sort(SortType sortType, List<T> list, boolean increasingOrder) {
         checkArgument(nonNull(list) && !list.isEmpty(), "List is empty!");
         try {
-            Class<S> type = sortType.getType();
-            S abstractSort = type.getDeclaredConstructor(List.class, Boolean.class).newInstance(list, increasingOrder);
-            abstractSort.sort();
-            return abstractSort;
+            AbstractSort<T> abstractSort = getConstructor(sortType).newInstance(list, increasingOrder);
+            return abstractSort.sort();
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             throw new IllegalStateException(e);
         }
+    }
+
+    @NotNull
+    private static Constructor<? extends AbstractSort> getConstructor(SortType sortType) throws NoSuchMethodException {
+        Class<? extends AbstractSort> type = sortType.getType();
+        Constructor<? extends AbstractSort> constructor = type.getDeclaredConstructor(List.class, Boolean.class);
+        constructor.setAccessible(true);
+        return constructor;
     }
 
 }

@@ -1,4 +1,6 @@
-package algorithms.sort;
+package algorithms.sort.impl;
+
+import algorithms.sort.AbstractSort;
 
 import java.util.List;
 
@@ -12,7 +14,7 @@ public class BubbleSort<T extends Comparable<T>> extends AbstractSort<T> {
     }
 
     @Override
-    protected void sort() {
+    protected BubbleSort<T> sort() {
         for (int i = 0; i < list.size() - 1; i++) {
             for (int j = i + 1; j < list.size(); j++) {
                 if (isKeyNotInPlace(list.get(i), j)) {
@@ -22,6 +24,7 @@ public class BubbleSort<T extends Comparable<T>> extends AbstractSort<T> {
                 }
             }
         }
+        return this;
     }
 
 }

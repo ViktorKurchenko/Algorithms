@@ -11,11 +11,11 @@ import static com.google.common.collect.Lists.newArrayList;
  */
 public abstract class AbstractSort<T extends Comparable<T>> {
 
-    final List<T> list;
+    protected final List<T> list;
     private final boolean increasingOrder;
 
 
-    AbstractSort(@NotNull List<T> list, boolean increasingOrder) {
+    protected AbstractSort(@NotNull List<T> list, boolean increasingOrder) {
         this.list = newArrayList(list);
         this.increasingOrder = increasingOrder;
     }
@@ -24,9 +24,9 @@ public abstract class AbstractSort<T extends Comparable<T>> {
         return newArrayList(list);
     }
 
-    protected abstract void sort();
+    protected abstract AbstractSort<T> sort();
 
-    boolean isKeyNotInPlace(T key, int index) {
+    protected boolean isKeyNotInPlace(T key, int index) {
         return increasingOrder ?
                 key.compareTo(list.get(index)) > 0 :
                 key.compareTo(list.get(index)) < 0;
