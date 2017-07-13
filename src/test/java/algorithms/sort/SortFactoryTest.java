@@ -38,7 +38,6 @@ public class SortFactoryTest {
     }
 
     @Parameter
-    @SuppressWarnings("unchecked")
     public SortType sortType;
 
 
