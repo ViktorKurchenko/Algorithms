@@ -34,7 +34,7 @@ public class SortFactoryTest {
 
     @Parameters
     public static Collection<Object[]> data() {
-        return asList(new Object[][]{{BUBBLE_SORT}, {SELECTION_SORT}, {INSERTION_SORT}});
+        return asList(new Object[][]{{BUBBLE_SORT}, {SELECTION_SORT}, {INSERTION_SORT}, {MERGE_SORT}});
     }
 
     @Parameter
