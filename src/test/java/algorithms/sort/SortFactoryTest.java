@@ -10,7 +10,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
-import static algorithms.sort.SortFactory.sort;
 import static algorithms.sort.SortType.*;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.util.Arrays.asList;
@@ -23,6 +22,8 @@ import static org.junit.runners.Parameterized.Parameters;
 
 @RunWith(value = Parameterized.class)
 public class SortFactoryTest {
+
+    private static final SortFactory SORT_FACTORY = new SortFactory();
 
     private static final List<Integer> SINGLETON_LIST = singletonList(1);
     private static final List<Integer> INCREASE_SORTED_LIST = Ints.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
@@ -43,27 +44,27 @@ public class SortFactoryTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void test_exceptionForNullArgument() {
-        sort(sortType, null);
+        SORT_FACTORY.sort(sortType, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void test_exceptionForForEmptyList() {
-        sort(sortType, new ArrayList<Integer>());
+        SORT_FACTORY.sort(sortType, new ArrayList<Integer>());
     }
 
     @Test
     public void test_sortListWithOneItem() {
-        assertThat(sort(sortType, SINGLETON_LIST).getSortedList()).isEqualTo(SINGLETON_LIST);
+        assertThat(SORT_FACTORY.sort(sortType, SINGLETON_LIST).getSortedList()).isEqualTo(SINGLETON_LIST);
     }
 
     @Test
     public void test_successAscendingSort() {
-        assertThat(sort(sortType, UNSORTED_LIST).getSortedList()).isEqualTo(INCREASE_SORTED_LIST);
+        assertThat(SORT_FACTORY.sort(sortType, UNSORTED_LIST).getSortedList()).isEqualTo(INCREASE_SORTED_LIST);
     }
 
     @Test
     public void test_successDescendingSort() {
-        assertThat(sort(sortType, UNSORTED_LIST, false).getSortedList()).isEqualTo(DECREASE_SORTED_LIST);
+        assertThat(SORT_FACTORY.sort(sortType, UNSORTED_LIST, false).getSortedList()).isEqualTo(DECREASE_SORTED_LIST);
     }
 
     @Test
@@ -71,7 +72,7 @@ public class SortFactoryTest {
         final List<Integer> RANDOM_LIST = createRandomArray();
         RANDOM_LIST.sort(naturalOrder());
 
-        assertThat(sort(sortType, RANDOM_LIST).getSortedList()).isEqualTo(RANDOM_LIST);
+        assertThat(SORT_FACTORY.sort(sortType, RANDOM_LIST).getSortedList()).isEqualTo(RANDOM_LIST);
     }
 
     @Test
@@ -79,7 +80,7 @@ public class SortFactoryTest {
         final List<Integer> RANDOM_LIST = createRandomArray();
         RANDOM_LIST.sort(reverseOrder());
 
-        assertThat(sort(sortType, RANDOM_LIST, false).getSortedList()).isEqualTo(RANDOM_LIST);
+        assertThat(SORT_FACTORY.sort(sortType, RANDOM_LIST, false).getSortedList()).isEqualTo(RANDOM_LIST);
     }
 
     private List<Integer> createRandomArray() {

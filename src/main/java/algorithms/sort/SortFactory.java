@@ -11,11 +11,11 @@ import static java.util.Objects.nonNull;
 
 public class SortFactory {
 
-    public static <T extends Comparable<T>> AbstractSort<T> sort(SortType sortType, List<T> list) {
+    public <T extends Comparable<T>> AbstractSort<T> sort(SortType sortType, List<T> list) {
         return sort(sortType, list, true);
     }
 
-    public static <T extends Comparable<T>> AbstractSort<T> sort(SortType sortType, List<T> list, boolean ascendingOrder) {
+    public <T extends Comparable<T>> AbstractSort<T> sort(SortType sortType, List<T> list, boolean ascendingOrder) {
         checkArgument(nonNull(list) && !list.isEmpty(), "List is empty!");
         try {
             AbstractSort<T> abstractSort = getConstructor(sortType).newInstance(list, ascendingOrder);
@@ -26,7 +26,7 @@ public class SortFactory {
     }
 
     @NotNull
-    private static Constructor<? extends AbstractSort> getConstructor(SortType sortType) throws NoSuchMethodException {
+    private Constructor<? extends AbstractSort> getConstructor(SortType sortType) throws NoSuchMethodException {
         Class<? extends AbstractSort> type = sortType.getType();
         Constructor<? extends AbstractSort> constructor = type.getDeclaredConstructor(List.class, Boolean.class);
         constructor.setAccessible(true);
