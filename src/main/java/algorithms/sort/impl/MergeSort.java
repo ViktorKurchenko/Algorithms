@@ -5,7 +5,6 @@ import algorithms.sort.AbstractSort;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.primitives.Ints.asList;
 
 /**
  * Merge sort algorithm implementation
@@ -16,47 +15,61 @@ public class MergeSort<T extends Comparable<T>> extends AbstractSort<T> {
         super(list, !ascendingOrder);
     }
 
-    public static void main(String[] args) {
-        MergeSort<Integer> mergeSort = new MergeSort<>(asList(9, 0, 5, 3), true);
-        mergeSort.sort();
-        System.out.println(mergeSort.getSortedList());
-    }
-
     @Override
     protected MergeSort<T> sort() {
-        mergeSort(0, list.size() - 1);
+        mergeSort(list);
         return this;
     }
 
-    private void mergeSort(int start, int end) {
-        if (start < end) {
-            int middle = (start + end) / 2;
-            mergeSort(start, middle);
-            mergeSort(middle + 1, end);
-            merge(start, middle, end);
+    private void mergeSort(List<T> list) {
+        if (list.size() > 1) {
+            final int MIDDLE = list.size() / 2;
+            List<T> left = list.subList(0, MIDDLE);
+            List<T> right = list.subList(MIDDLE, list.size());
+            mergeSort(left);
+            mergeSort(right);
+            merge(left, right);
         }
     }
 
-    private void merge(int start, int middle, int end) {
-        int n1 = middle - start + 1;
-        int n2 = end - middle;
-        List<T> L = newArrayList();
-        List<T> R = newArrayList();
-        for (int i = 0; i < n1; i++) {
-            L.add(list.get(start + i));
-        }
-        for (int i = 0; i < n2; i++) {
-            R.add(list.get(middle + i + 1));
-        }
-        System.out.println("L: " + L + "\tR: " + R);
-        for (int i = 0, j = 0, k = start; k < end; k ++) {
-            if (L.get(i).compareTo(R.get(j)) <= 0) {
-                list.set(k, L.get(i));
-                i++;
-            } else if (list.get(k).compareTo(R.get(j)) == 0) {
-                j++;
+    private void merge(List<T> left, List<T> right) {
+        List<T> result = newArrayList();
+        int leftIndex = 0;
+        int rightIndex = 0;
+        while (leftIndex < left.size() && rightIndex < right.size()) {
+            if (isElementInPlace(left.get(leftIndex), right.get(rightIndex))) {
+                result.add(left.get(leftIndex));
+                leftIndex++;
+            } else {
+                result.add(right.get(rightIndex));
+                rightIndex++;
             }
         }
+        fillResult(left, leftIndex, result);
+        fillResult(right, rightIndex, result);
+        fillListsFromResult(left, right, result);
+    }
+
+    private void fillResult(List<T> left, int leftIndex, List<T> result) {
+        for (; leftIndex < left.size(); leftIndex++) {
+            result.add(left.get(leftIndex));
+        }
+    }
+
+    private void fillListsFromResult(List<T> left, List<T> right, List<T> result) {
+        int index = 0;
+        for (int i = 0; i < left.size(); i++, index++) {
+            left.set(i, result.get(index));
+        }
+        for (int i = 0; i < right.size(); i++, index++) {
+            right.set(i, result.get(index));
+        }
+    }
+
+    private boolean isElementInPlace(T left, T right) {
+        return ascendingOrder ?
+                left.compareTo(right) > 0 :
+                left.compareTo(right) < 0;
     }
 
 }

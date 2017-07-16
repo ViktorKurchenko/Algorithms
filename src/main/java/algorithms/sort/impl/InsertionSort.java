@@ -18,7 +18,7 @@ public class InsertionSort<T extends Comparable<T>> extends AbstractSort<T> {
         for (int i = 1; i < list.size(); i++) {
             T key = list.get(i);
             int j = i - 1;
-            while ((j >= 0) && isKeyNotInPlace(key, j)) {
+            while ((j >= 0) && isElementInPlace(key, j)) {
                 list.set(j + 1, list.get(j));
                 j--;
             }

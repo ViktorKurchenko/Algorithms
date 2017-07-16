@@ -29,7 +29,7 @@ public class SortFactoryTest {
     private static final List<Integer> DECREASE_SORTED_LIST = Ints.asList(10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0);
     private static final List<Integer> UNSORTED_LIST = Ints.asList(1, 9, 2, 8, 3, 7, 4, 6, 5, 10, 0);
 
-    private static final int RANDOM_LIST_SIZE = 1_000;
+    private static final int RANDOM_LIST_SIZE = 10_000;
     private static final Random random = new Random();
 
     @Parameters
