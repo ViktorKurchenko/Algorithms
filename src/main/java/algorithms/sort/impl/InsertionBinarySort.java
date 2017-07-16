@@ -1,5 +1,6 @@
 package algorithms.sort.impl;
 
+import algorithms.search.BinarySearch;
 import algorithms.sort.AbstractSort;
 
 import java.util.List;
@@ -7,17 +8,25 @@ import java.util.List;
 /**
  * Insertion sort algorithm implementation
  */
-public class InsertionSort<T extends Comparable<T>> extends AbstractSort<T> {
+public class InsertionBinarySort<T extends Comparable<T>> extends AbstractSort<T> {
 
-    private InsertionSort(List<T> list, Boolean ascendingOrder) {
+    private final BinarySearch<T> binarySearch;
+
+    private InsertionBinarySort(List<T> list, Boolean ascendingOrder) {
         super(list, !ascendingOrder);
+        binarySearch = new BinarySearch<>(list);
     }
 
     @Override
-    protected InsertionSort<T> sort() {
+    protected InsertionBinarySort<T> sort() {
         for (int i = 1; i < list.size(); i++) {
             T key = list.get(i);
             int j = i - 1;
+            if (isElementNotInPlace(key, j)) {
+
+            }
+
+
             while ((j >= 0) && isElementNotInPlace(key, j)) {
                 list.set(j + 1, list.get(j));
                 j--;

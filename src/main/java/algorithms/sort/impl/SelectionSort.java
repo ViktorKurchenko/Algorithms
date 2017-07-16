@@ -19,7 +19,7 @@ public class SelectionSort<T extends Comparable<T>> extends AbstractSort<T> {
             int keyPos = i;
             T key = list.get(i);
             for (int j = i + 1; j < list.size(); j++) {
-                if (isElementInPlace(key, j)) {
+                if (isElementNotInPlace(key, j)) {
                     key = list.get(j);
                     keyPos = j;
                 }
