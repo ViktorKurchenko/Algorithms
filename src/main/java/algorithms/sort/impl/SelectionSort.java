@@ -19,18 +19,22 @@ public class SelectionSort<T extends Comparable<T>> extends AbstractSort<T> {
             int keyPos = i;
             T key = list.get(i);
             for (int j = i + 1; j < list.size(); j++) {
-                if (isKeyNotInPlace(key, j)) {
+                if (isElementNotInPlace(key, j)) {
                     key = list.get(j);
                     keyPos = j;
                 }
             }
             if (keyPos != i) {
-                T tmp = list.get(i);
-                list.set(i, key);
-                list.set(keyPos, tmp);
+                swap(i, keyPos, key);
             }
         }
         return this;
+    }
+
+    private void swap(int indexPos, int keyPos, T key) {
+        T tmp = list.get(indexPos);
+        list.set(indexPos, key);
+        list.set(keyPos, tmp);
     }
 
 }
