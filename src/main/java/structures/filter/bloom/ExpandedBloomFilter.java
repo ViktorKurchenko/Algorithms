@@ -8,13 +8,16 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static java.util.Collections.*;
 
-public class SimpleBloomFilter<T> implements BloomFilter<T> {
+public class ExpandedBloomFilter<T> implements BloomFilter<T> {
 
     private static final Integer DEFAULT_BIAS = 3;
     private static final Integer DEFAULT_CAPACITY = 1024;
@@ -35,23 +38,23 @@ public class SimpleBloomFilter<T> implements BloomFilter<T> {
     private final Integer capacity;
 
 
-    public SimpleBloomFilter(@NotNull List<Integer> storage) {
-        checkNotNull(storage);
-        checkArgument(!storage.isEmpty());
+    public ExpandedBloomFilter(@NotNull List<Integer> filter) {
+        checkNotNull(filter);
+        checkArgument(!filter.isEmpty());
         bias = DEFAULT_BIAS;
-        capacity = storage.size();
-        copy(this.storage = new ArrayList<>(), storage);
+        capacity = filter.size();
+        copy(storage = new ArrayList<>(), filter);
     }
 
-    public SimpleBloomFilter() {
+    public ExpandedBloomFilter() {
         this(DEFAULT_BIAS, DEFAULT_CAPACITY);
     }
 
-    public SimpleBloomFilter(int capacity) {
+    public ExpandedBloomFilter(int capacity) {
         this(DEFAULT_BIAS, capacity);
     }
 
-    public SimpleBloomFilter(int bias, int capacity) {
+    public ExpandedBloomFilter(int bias, int capacity) {
         checkArgument(capacity > 0);
         checkArgument(bias > 0);
         this.bias = bias;
