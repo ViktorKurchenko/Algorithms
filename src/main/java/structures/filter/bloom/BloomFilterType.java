@@ -1,17 +1,19 @@
 package structures.filter.bloom;
 
+import java.util.function.Supplier;
+
 public enum BloomFilterType {
 
-    SIMPLE(SimpleBloomFilter.class), COUNTING(CountingBloomFilter.class), EXPANDED(ExpandedBloomFilter.class);
+    SIMPLE(SimpleBloomFilter::new), COUNTING(CountingBloomFilter::new), EXPANDED(ExpandedBloomFilter::new);
 
-    private final Class<? extends BloomFilter> type;
+    private final Supplier<? extends BloomFilter> instance;
 
-    BloomFilterType(Class<? extends BloomFilter> type) {
-        this.type = type;
+    BloomFilterType(Supplier<? extends BloomFilter> instance) {
+        this.instance = instance;
     }
 
-    public Class<? extends BloomFilter> getType() {
-        return type;
+    public BloomFilter getInstance() {
+        return instance.get();
     }
 
 }

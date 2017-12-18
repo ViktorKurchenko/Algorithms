@@ -2,7 +2,7 @@ package structures.filter.bloom;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Collection;
+import java.util.List;
 
 public interface BloomFilter<T> {
 
@@ -14,6 +14,8 @@ public interface BloomFilter<T> {
 
     void clear();
 
-    @NotNull Collection<Integer> getFilterStorage();
+    @NotNull List<Integer> getFilterStorage();
+
+    void setFilterStorage(@NotNull List<Integer> storage);
 
 }

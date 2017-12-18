@@ -10,7 +10,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -95,11 +94,16 @@ public class ExpandedBloomFilter<T> implements BloomFilter<T> {
 
     @NotNull
     @Override
-    public Collection<Integer> getFilterStorage() {
-        return unmodifiableCollection(storage);
+    public List<Integer> getFilterStorage() {
+        return unmodifiableList(storage);
     }
 
-    int[] calculateIndexes(byte[] bytes) {
+    @Override
+    public void setFilterStorage(List<Integer> storage) {
+
+    }
+
+    private int[] calculateIndexes(byte[] bytes) {
         final int[] buckets = new int[bias];
         for (int i = 0; i < bias; i++) {
             buckets[i] = hashCode(bytes, (i + 1)) % capacity;
@@ -107,7 +111,7 @@ public class ExpandedBloomFilter<T> implements BloomFilter<T> {
         return buckets;
     }
 
-    byte[] toByteArray(T object) {
+    private byte[] toByteArray(T object) {
         try (final ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
             final ObjectOutput out = new ObjectOutputStream(bos);
             out.writeObject(object);

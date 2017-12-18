@@ -8,11 +8,15 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
-import static java.util.Collections.*;
+import static com.google.common.collect.Lists.newArrayList;
+import static java.util.Collections.fill;
+import static java.util.Collections.nCopies;
 
 public class SimpleBloomFilter<T> implements BloomFilter<T> {
 
@@ -29,10 +33,9 @@ public class SimpleBloomFilter<T> implements BloomFilter<T> {
         }
     }
 
-    final List<Integer> storage;
-
     private final Integer bias;
     private final Integer capacity;
+    List<Integer> storage;
 
 
     public SimpleBloomFilter(@NotNull List<Integer> storage) {
@@ -40,7 +43,7 @@ public class SimpleBloomFilter<T> implements BloomFilter<T> {
         checkArgument(!storage.isEmpty());
         bias = DEFAULT_BIAS;
         capacity = storage.size();
-        copy(this.storage = new ArrayList<>(), storage);
+        this.storage = newArrayList(storage);
     }
 
     public SimpleBloomFilter() {
@@ -92,8 +95,13 @@ public class SimpleBloomFilter<T> implements BloomFilter<T> {
 
     @NotNull
     @Override
-    public Collection<Integer> getFilterStorage() {
-        return unmodifiableCollection(storage);
+    public List<Integer> getFilterStorage() {
+        return newArrayList(storage);
+    }
+
+    @Override
+    public void setFilterStorage(@NotNull List<Integer> storage) {
+        this.storage = newArrayList(storage);
     }
 
     int[] calculateIndexes(byte[] bytes) {
