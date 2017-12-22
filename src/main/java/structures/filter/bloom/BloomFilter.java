@@ -10,7 +10,7 @@ public interface BloomFilter<T> {
 
     void add(@NotNull T object);
 
-    void remove(@NotNull T object);
+    boolean remove(@NotNull T object);
 
     void clear();
 

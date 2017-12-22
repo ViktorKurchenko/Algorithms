@@ -83,7 +83,7 @@ public class ExpandedBloomFilter<T> implements BloomFilter<T> {
     }
 
     @Override
-    public void remove(@NotNull T object) {
+    public boolean remove(@NotNull T object) {
         throw new UnsupportedOperationException("This filter doesn't support remove operation! Use Counting or Multidimensional filter instead!");
     }
 
@@ -99,7 +99,7 @@ public class ExpandedBloomFilter<T> implements BloomFilter<T> {
     }
 
     @Override
-    public void setFilterStorage(List<Integer> storage) {
+    public void setFilterStorage(@NotNull List<Integer> storage) {
 
     }
 

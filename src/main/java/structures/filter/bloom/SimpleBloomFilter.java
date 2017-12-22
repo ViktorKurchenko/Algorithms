@@ -8,20 +8,14 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.util.Collections.fill;
-import static java.util.Collections.nCopies;
 
 public class SimpleBloomFilter<T> implements BloomFilter<T> {
-
-    private static final Integer DEFAULT_BIAS = 3;
-    private static final Integer DEFAULT_CAPACITY = 1024;
 
     private static final MessageDigest MESSAGE_DIGEST;
 
@@ -34,32 +28,11 @@ public class SimpleBloomFilter<T> implements BloomFilter<T> {
     }
 
     private final Integer bias;
-    private final Integer capacity;
     List<Integer> storage;
 
 
-    public SimpleBloomFilter(@NotNull List<Integer> storage) {
-        checkNotNull(storage);
-        checkArgument(!storage.isEmpty());
-        bias = DEFAULT_BIAS;
-        capacity = storage.size();
-        this.storage = newArrayList(storage);
-    }
-
-    public SimpleBloomFilter() {
-        this(DEFAULT_BIAS, DEFAULT_CAPACITY);
-    }
-
-    public SimpleBloomFilter(int capacity) {
-        this(DEFAULT_BIAS, capacity);
-    }
-
-    public SimpleBloomFilter(int bias, int capacity) {
-        checkArgument(capacity > 0);
-        checkArgument(bias > 0);
+    SimpleBloomFilter(Integer bias) {
         this.bias = bias;
-        this.capacity = capacity;
-        storage = new ArrayList<>(nCopies(capacity, 0));
     }
 
     @Override
@@ -84,8 +57,8 @@ public class SimpleBloomFilter<T> implements BloomFilter<T> {
     }
 
     @Override
-    public void remove(@NotNull T object) {
-        throw new UnsupportedOperationException("This filter doesn't support remove operation! Use Counting or Multidimensional filter instead!");
+    public boolean remove(@NotNull T object) {
+        throw new UnsupportedOperationException("This filter doesn't support remove operation! Use Counting or Expanded filter instead!");
     }
 
     @Override
@@ -107,7 +80,7 @@ public class SimpleBloomFilter<T> implements BloomFilter<T> {
     int[] calculateIndexes(byte[] bytes) {
         final int[] buckets = new int[bias];
         for (int i = 0; i < bias; i++) {
-            buckets[i] = hashCode(bytes, (i + 1)) % capacity;
+            buckets[i] = hashCode(bytes, (i + 1)) % storage.size();
         }
         return buckets;
     }
