@@ -27,9 +27,9 @@ public abstract class AbstractSort<T extends Comparable<T>> {
     protected abstract AbstractSort<T> sort();
 
     protected boolean isElementNotInPlace(T key, int index) {
-        return ascendingOrder ?
-                key.compareTo(list.get(index)) > 0 :
-                key.compareTo(list.get(index)) < 0;
+        return ascendingOrder
+                ? key.compareTo(list.get(index)) > 0
+                : key.compareTo(list.get(index)) < 0;
     }
 
 }

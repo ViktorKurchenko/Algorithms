@@ -30,10 +30,11 @@ public class SortFactoryTest extends BaseTest {
 
     @Parameters
     public static Collection<Object[]> data() {
-        return asList(new Object[][]{{BUBBLE_SORT}, {SELECTION_SORT}, {INSERTION_SORT}, {MERGE_SORT}});
+        return asList(new Object[][]{{BUBBLE_SORT}, {SELECTION_SORT}, {INSERTION_SORT}, {MERGE_SORT}, {QUICK_SORT}});
     }
 
     @Parameter
+    @SuppressWarnings("WeakerAccess")
     public SortType sortType;
 
 

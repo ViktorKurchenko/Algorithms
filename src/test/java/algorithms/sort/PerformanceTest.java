@@ -18,7 +18,9 @@ public class PerformanceTest extends BaseTest {
         final long SELECTION_SORT_TIME = benchmarkSort(SortType.SELECTION_SORT, RANDOM_LIST);
         final long INSERTION_SORT_TIME = benchmarkSort(SortType.INSERTION_SORT, RANDOM_LIST);
         final long MERGE_SORT_TIME = benchmarkSort(SortType.MERGE_SORT, RANDOM_LIST);
+        final long QUICK_SORT_TIME = benchmarkSort(SortType.QUICK_SORT, RANDOM_LIST);
 
+        assertThat(QUICK_SORT_TIME).isLessThanOrEqualTo(MERGE_SORT_TIME);
         assertThat(MERGE_SORT_TIME).isLessThan(INSERTION_SORT_TIME);
         assertThat(INSERTION_SORT_TIME).isLessThan(SELECTION_SORT_TIME);
         assertThat(SELECTION_SORT_TIME).isLessThan(BUBBLE_SORT_TIME);
